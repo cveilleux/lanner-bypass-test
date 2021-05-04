@@ -1,0 +1,9 @@
+[Unit]
+Description=Linux bridge monitored by hardware watchdog
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/watchdog-bridge.sh
+
+[Install]
+WantedBy=multi-user.target
