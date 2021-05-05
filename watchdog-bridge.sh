@@ -13,15 +13,15 @@ brctl setageing bypass0 0
 ip link set bypass0 up
 
 # Configure watchdog with a 5 seconds timer (0x5)
-./bpwd_tst -a 0 -w -d 0x37 -c 0x22 -o 0x5
+bpwd_tst -a 0 -w -d 0x37 -c 0x22 -o 0x5
 
 # Start watchdog
-./bpwd_tst -a 0 -w -d 0x37 -c 0x24 -o 0x00
+bpwd_tst -a 0 -w -d 0x37 -c 0x24 -o 0x00
 
 # Reset the timer every 2 seconds
 echo "Press [CTRL+C] to stop.."
 while :
 do
-	./bpwd_tst -a 0 -w -d 0x37 -c 0x24 -o 0x00
+	bpwd_tst -a 0 -w -d 0x37 -c 0x24 -o 0x00
 	sleep 2
 done
