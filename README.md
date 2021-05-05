@@ -245,4 +245,11 @@ We abruptly disconnect power to the test unit.
 Reconnecting power after power loss causes the unit to reboot immediately and the by-pass remains on, no packet loss observed.
 
 
+## Conclusion
+
+When properly activated using the provided hardware watchdog, all failure scenarios we tested caused the by-pass to properly engage, resuming the flow of network traffic.
+
+Whenever the by-pass toggles on or off, the ethernet link is brought down and the reconnection process of peers is engaged, causing a slight interruption of service in the range of 5 to 12 seconds.
+
+
 
