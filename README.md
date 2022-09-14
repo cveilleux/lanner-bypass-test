@@ -68,6 +68,8 @@ Lanner america provided us with a utility named bpwd version 1.2.9 (dated May 03
 
 This utility is Copyright(c) 2013 Lanner Electronics Inc. and distributed under the GNU General Public License, version 2.
 
+Sources are mirrored as-is here: https://github.com/cveilleux/bpwd
+
 The utility communicates using i2c bus commands to read and change states.
 
 There are 3 supported i2c modes that are chosen at compile time:
@@ -82,7 +84,8 @@ The default mode (linux driver) was used for this experiment.
 ### Compiling the bpwd_tst binary
 
 ```
-cd lanner_bpwd-1.2.9
+git clone https://github.com/cveilleux/bpwd.git
+cd bpwd
 mv Makefile.linux Makefile
 make
 ```
@@ -119,12 +122,20 @@ The factory defaults of the unit received were:
 For our experiment, we will want the by-pass ON at all times by default. We will then control explicitely when we turn-off the by-pass using a script. The idea is for the hardware to return to a safe default of by-pass ON whenever our script is not working.
 
 ```
+bpwd_tst -a 0 -w -d 0x37 -c 0x10 -o 0xff
 bpwd_tst -a 0 -w -d 0x37 -c 0x11 -o 0xff
 bpwd_tst -a 0 -w -d 0x37 -c 0x12 -o 0xff
-bpwd_tst -a 0 -w -d 0x37 -c 0x0B -o 0xff
 ```
 
 At this point the system was halted and power was removed. Upon rebooting we confirmed that the changes were persisted by reading the state of the by-pass again.
+
+To disable the By-pass:
+
+```
+bpwd_tst -a 0 -w -d 0x37 -c 0x10 -o 0x00
+bpwd_tst -a 0 -w -d 0x37 -c 0x11 -o 0x00
+bpwd_tst -a 0 -w -d 0x37 -c 0x12 -o 0x00
+```
 
 
 ## Sniffing using a transparent bridge
